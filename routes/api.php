@@ -1,8 +1,5 @@
 <?php
-
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
-
+ 
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -13,9 +10,16 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
- //----------------------------- CRUD CLIENTE  -----------------------------
- Route::POST('createClient', 'ClientController@createClient');
- Route::POST('updateClient', 'ClientController@updateClient');
- Route::POST('deleteClient', 'ClientController@deleteClient');
- Route::GET('getClients/{id?}', 'ClientController@getClient');
+ //----------------------------- CRUD CLIENT  -----------------------------
+Route::POST('createClient', 'ClientController@createClient');
+Route::POST('updateClient', 'ClientController@updateClient');
+Route::POST('deleteClient', 'ClientController@deleteClient');
+Route::POST('clientFilters', 'ClientController@getClientFilters');
+Route::GET('getClients/{id?}', 'ClientController@getClient');
+
+//-----------------------------  TRAVEL  -----------------------------
+Route::POST('createTravel', 'TravelController@createTravel');
+Route::POST('createTravelXML', 'TravelController@createTravelXML');
+Route::POST('getTravelFilters', 'TravelController@getTravelFilters');
+Route::GET('getTravel/{id?}', 'TravelController@getTravel');
 
