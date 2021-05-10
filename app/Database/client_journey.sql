@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-05-2021 a las 04:47:54
+-- Tiempo de generación: 10-05-2021 a las 04:52:59
 -- Versión del servidor: 10.4.18-MariaDB
 -- Versión de PHP: 8.0.5
 
@@ -44,10 +44,6 @@ CREATE TABLE `clients` (
 --
 
 INSERT INTO `clients` (`id`, `name`, `lastname`, `cellphone`, `email`, `address`, `photo`, `created_at`, `updated_at`) VALUES
-(1, 'John', 'Doe', '5556664433', 'jahel131296', 'Avenue 15', NULL, '2021-05-08 17:19:53', '2021-05-09 20:59:58'),
-(5, 'nelsy', 'Hernandez', NULL, 'nelsy27', NULL, NULL, '2021-05-09 12:52:48', '2021-05-09 12:52:48'),
-(7, 'Liyo', NULL, NULL, 'liyo', NULL, '/images/users/1620608720descarga.jpg', '2021-05-09 20:05:20', '2021-05-09 20:05:20'),
-(9, 'lore', NULL, NULL, 'lore', NULL, '/images/users/1620610426descarga.jpg', '2021-05-09 20:33:46', '2021-05-09 20:33:46'),
 (10, 'Jane', 'Doe', '3119991111', 'Jane.Doe@gmail.com', NULL, NULL, '2021-05-09 21:11:26', '2021-05-09 21:11:26'),
 (11, 'John', 'Doe', '3119991111', 'John.Doe@gmail.com', NULL, NULL, '2021-05-09 21:23:00', '2021-05-09 21:23:00');
 
@@ -121,9 +117,6 @@ CREATE TABLE `travels` (
 --
 
 INSERT INTO `travels` (`id`, `email_fk`, `date`, `country`, `city`, `created_at`, `updated_at`) VALUES
-(2, NULL, NULL, NULL, NULL, '2021-05-09 00:09:32', '2021-05-09 00:09:32'),
-(3, NULL, NULL, NULL, NULL, '2021-05-09 00:15:31', '2021-05-09 00:15:31'),
-(4, NULL, NULL, NULL, NULL, '2021-05-09 00:17:05', '2021-05-09 00:17:05'),
 (7, 'Jane.Doe@gmail.com', '01/01/1999', 'Colombia', 'Bogota', '2021-05-09 21:14:17', '2021-05-09 21:14:17'),
 (9, 'John.Doe@gmail.com', '01/01/1999', 'Colombia', 'Bogota', '2021-05-09 21:23:04', '2021-05-09 21:23:04');
 
