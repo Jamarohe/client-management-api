@@ -4,15 +4,7 @@
 
 Client Management Rest API documentation.
 
-- [Clients](##clients)
-    - [Create](###create-client)
-    - [Read](###read-client)
-    - [Update](###update-client)
-    - [Delete](###delete-client)
-- [Travels](##travels)
-    - [Create](###create-travel)
-    - [Read](###read-travels-list)
-
+ 
 ## Clients
 
 ### Create Client
