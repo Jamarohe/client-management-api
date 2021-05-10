@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use File;
 use App\Models\Client;
 use App\Models\Travel;
 use Illuminate\Http\Request;
@@ -10,15 +10,35 @@ use App\Classes\FormatResponse;
 class ClientController extends FormatResponse
 {
 
-    public function createClient(Request $request){ 
-            $client = new Client(); 
-            $client->create($request->input())->save();
-            $client = Client::orderBy('created_at','desc')->first();
-            if($client){
-                return $this->toJson($this->estadoExitoso(),$client); 
+    public function createClient(Request $request){
+        $client = new Client(); 
+        if ($request->File('image')) {
+            $file = public_path('images/users/');
+
+            if (!(file_exists($file))) {
+                $path = public_path('images/users/');
+                File::makeDirectory($path, 0777, true, true);
             }
-            return $this->toJson($this->estadoOperacionFallida()); 
-    }
+
+            $file = $request->file('image');
+            $names = time().$file->getClientOriginalName();
+            $file->move(public_path().'/images/users', $names);
+            $name = '/images/users/'.$names;
+            $client->photo = '/images/users/'.$names;
+        }
+        $client->name = $request->name;
+        $client->lastname = $request->lastname;
+        $client->cellphone = $request->cellphone;
+        $client->email = $request->email;
+        $client->address = $request->address;
+        
+        $client->save();
+        if($client){
+            return $this->toJson($this->estadoExitoso(),$client); 
+        }
+        return $this->toJson($this->estadoOperacionFallida());
+        
+    } 
 
     public function updateClient(Request $request){
         try {
@@ -37,7 +57,7 @@ class ClientController extends FormatResponse
         if($id){
             $client = Client::where('id',$id)->first();  
         }else{
-            $client = Client::where('status',1)->get();
+            $client = Client::get();
         }
         if($client){
             return $this->toJson($this->estadoExitoso(),$client);   
@@ -50,28 +70,27 @@ class ClientController extends FormatResponse
         if ($request){
             $client = Client::select('*')->name($request->get('name'))
                         ->email($request->get('email'))
-                        ->phone($request->get('phone'))
-                        ->where('status',1)
+                        ->phone($request->get('phone')) 
                         ->paginate(20);  
         }else{
-            $client = Client::where('status',1)->get();
+            $client = Client::get();
         }
         return $this->toJson($this->estadoExitoso(),$client);        
     }
 
-    public function deleteClient(Request $request){
+    public function deleteClient($id){
         try {
-            //Change Status from 1(active) to 0(inactive)
-            $client = Client::where('id', $request->id)->first();
-            $client->status = $request->status;
-            $client->save();
+            //Search client and get id
+            $client = Client::where('id', $id)->first();
+            
             //Delete all travels associate to the client
             $email = $client->email; 
             $travels = Travel::where('email_fk',$email)->get();
             foreach ($travels as  $travel) { 
                 $travel->status = 0;
-                $travel->save();
+                $travel->delete();
             } 
+            $client->delete();
             if($client){
                 return $this->toJson($this->estadoExitoso());
             }
@@ -81,6 +100,5 @@ class ClientController extends FormatResponse
             return $this->toJson($this->estadoOperacionFallida($ex));
         }
     }
-
-
+ 
 }

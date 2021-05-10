@@ -42,7 +42,7 @@ class TravelController extends FormatResponse
         if($id){
             $travel = Travel::where('id',$id)->first();  
         }else{
-            $travel = Travel::where('status',1)->get();
+            $travel = Travel::get();
         }
         if($travel){
             return $this->toJson($this->estadoExitoso(),$travel);   
@@ -56,11 +56,10 @@ class TravelController extends FormatResponse
             $travel = Travel::email($request->get('email'))
                         ->date($request->get('date'))
                         ->country($request->get('country'))
-                        ->city($request->get('city'))
-                        ->where('status',1)
+                        ->city($request->get('city')) 
                         ->paginate(20);  
         }else{
-            $travel = Travel::where('status',1)->get();
+            $travel = Travel::get();
         }
         return $this->toJson($this->estadoExitoso(),$travel);        
     }

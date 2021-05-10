@@ -1,62 +1,452 @@
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# Client Management Rest API
 
-## About Laravel
+Client Management Rest API documentation.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- [Clients](##clients)
+    - [Create](###create-client)
+    - [Read](###read-client)
+    - [Update](###update-client)
+    - [Delete](###delete-client)
+- [Travels](##travels)
+    - [Create](###create-travel)
+    - [Read](###read-travels-list)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Clients
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Create Client
 
-## Learning Laravel
+`POST /client/create`
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+`Content-Type: application/json`
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+#### Body
 
-## Laravel Sponsors
+- `name`: String. Optional.
+- `lastname`: String. Optional.
+- `cellphone`: String. Optional.
+- `email`: String. Required.
+- `address`: String. Optional.
+- `image`: File. Optional.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+#### Example Request
 
-### Premium Partners
+```json
+{
+	"name": "Name",
+	"lastname": "LastName",
+	"cellphone": "+573079573640",
+	"email": "example@email.com",
+	"address": "Example address",
+	"image": "File",
+}
+```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
+#### Example Response
 
-## Contributing
+`200 OK`
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```json
+{
+    "status": {
+        "code": 1,
+        "message": "Procesado con éxito"
+    },
+    "data": {
+        "status": 1,
+        "photo": "/images/users/1620610426image.jpg",
+        "name": "Jane",
+        "lastname": "Doe",
+        "cellphone": "3119991111",
+        "email": "Jane.Doe@gmail.com",
+        "address": "",
+        "updated_at": "2021-05-10T01:33:46.000000Z",
+        "created_at": "2021-05-10T01:33:46.000000Z",
+        "id": 1
+    }
+}
+```
 
-## Code of Conduct
+### Read Client
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+`GET /getClients/{id?}`
 
-## Security Vulnerabilities
+`Content-Type: application/json`
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+#### Parameters
 
-## License
+- `id`: User identifier.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+#### Example Request
+
+`GET /getClients/1092`
+
+#### Example Response
+
+`200 OK`
+
+```json
+{
+    "status": {
+        "code": 1,
+        "message": "Procesado con éxito"
+    },
+    "data": {
+        "id": 1,
+        "name": "Jane",
+        "lastname": "Doe",
+        "cellphone": "3119991111",
+        "email": "Jane.Doe@gmail.com",
+        "address": "",
+        "photo": null,
+        "created_at": "2021-05-08T22:19:53.000000Z",
+        "updated_at": "2021-05-08T22:21:49.000000Z",
+        "status": 1
+    }
+}
+```
+
+
+### Search Client
+
+`POST /clientFilters`
+
+`Content-Type: application/json`
+ 
+#### Example Request
+
+`POST /clientFilters`
+
+#### Body
+
+- `name`: String. Optional.
+- `email`: String. Optional.
+- `phone`: String. Optional.  
+
+#### Example Request
+
+```json
+{ 
+    "name" : "J",
+    "lastname" : "",
+    "phone" : "",  
+}
+```
+
+#### Example Response
+
+`200 OK`
+
+```json
+{
+    "status": {
+        "code": 1,
+        "message": "Procesado con éxito"
+    },
+    "data": {
+        "current_page": 1,
+        "data": [
+            {
+                "id": 10,
+                "name": "Jane",
+                "lastname": "Doe",
+                "cellphone": "3119991111",
+                "email": "Jane.Doe@gmail.com",
+                "address": null,
+                "photo": null,
+                "created_at": "2021-05-10T02:11:26.000000Z",
+                "updated_at": "2021-05-10T02:11:26.000000Z",
+                "status": 1
+            }
+        ],
+        "first_page_url": "http://127.0.0.1:8000/api/clientFilters?page=1",
+        "from": 1,
+        "last_page": 1,
+        "last_page_url": "http://127.0.0.1:8000/api/clientFilters?page=1",
+        "links": [
+            {
+                "url": null,
+                "label": "&laquo; Previous",
+                "active": false
+            },
+            {
+                "url": "http://127.0.0.1:8000/api/clientFilters?page=1",
+                "label": "1",
+                "active": true
+            },
+            {
+                "url": null,
+                "label": "Next &raquo;",
+                "active": false
+            }
+        ],
+        "next_page_url": null,
+        "path": "http://127.0.0.1:8000/api/clientFilters",
+        "per_page": 20,
+        "prev_page_url": null,
+        "to": 1,
+        "total": 1
+    }
+}
+
+```
+
+### Update Client
+
+`POST /updateClient`
+
+`Content-Type: application/json`
+ 
+#### Body
+
+- `name`: String. Optional.
+- `lastname`: String. Optional.
+- `cellphone`: String. Optional. 
+- `address`: String. Optional.
+- `image`: File. Optional.
+
+#### Example Request
+
+```json
+{
+    "id" : 1,
+    "name" : "John",
+    "lastname" : "Doe",
+    "cellphone" : "5556664433", 
+    "address" : "Avenue 15 "
+}
+```
+
+#### Example Response
+
+`200 OK`
+
+```json
+{
+    "status": {
+        "code": 1,
+        "message": "Procesado con éxito"
+    },
+    "data": {
+        "id": 1,
+        "name": "John",
+        "lastname": "Doe",
+        "cellphone": "5556664433",
+        "email": "John.Doe@gmail.com",
+        "address": "Avenue 15",
+        "photo": null,
+        "created_at": "2021-05-08T22:19:53.000000Z",
+        "updated_at": "2021-05-10T01:59:58.000000Z",
+        "status": 0
+    }
+}
+```
+
+### Delete Client
+
+`DELETE /deleteClient/{id}`
+
+`Content-Type: application/json`
+
+#### Parameters
+
+- `id`: User identifier.
+
+#### Example Request
+
+`DELETE /deleteClient/8`
+
+#### Example Response
+
+`200 OK`
+
+```json
+{
+    "status": {
+        "code": 1,
+        "message": "Procesado con éxito"
+    }
+}
+```
+
+## Travels
+
+
+### Create Travel
+
+`POST /createTravelXML`
+
+`Content-Type: application/xml`
+
+#### Body
+
+- `date`: String. Required.
+- `country`: String. Required.
+- `city`: String. Required.
+- `email_fk`: String. Required.
+
+#### Example Request
+
+```xml
+<?xml version="1.0" ?>
+<travel>    
+    <email_fk>Jane.Doe@gmail.com</email_fk>  
+    <date>01/01/1999</date>  
+    <country>Colombia</country>  
+    <city>Bogota</city>  
+</travel>
+```
+
+#### Example Response
+
+`200 OK`
+
+```json
+{
+    "status": {
+        "code": 1,
+        "message": "Procesado con éxito"
+    },
+    "data": {
+        "id": 7,
+        "email_fk": "Jane.Doe@gmail.com",
+        "date": "01/01/1999",
+        "country": "Colombia",
+        "city": "Bogota",
+        "status": 1,
+        "created_at": "2021-05-10T02:14:17.000000Z",
+        "updated_at": "2021-05-10T02:14:17.000000Z"
+    }
+}
+```
+
+### Read Travels List
+
+`GET /getTravel`
+
+`Content-Type: application/json`
+
+#### Example Response
+
+`200 OK`
+
+```json
+{
+    "status": {
+        "code": 1,
+        "message": "Procesado con éxito"
+    },
+    "data": [ 
+        {
+            "id": 4,
+            "email_fk": "John.Doe@gmail.com",
+            "date": "31/12/1999",
+            "country": "Colombia",
+            "city": "Barranquilla",
+            "status": 1,
+            "created_at": "2021-05-09T05:17:05.000000Z",
+            "updated_at": "2021-05-09T05:17:05.000000Z"
+        },
+        {
+            "id": 7,
+            "email_fk": "Jane.Doe@gmail.com",
+            "date": "01/01/1999",
+            "country": "Colombia",
+            "city": "Bogota",
+            "status": 1,
+            "created_at": "2021-05-10T02:14:17.000000Z",
+            "updated_at": "2021-05-10T02:14:17.000000Z"
+        }
+    ]
+}
+```
+
+### Search Travels 
+
+`GET /getTravelFilters`
+
+`Content-Type: application/json`
+
+#### Body
+
+- `email`: String. Optional.
+- `date`: String. Optional. 
+- `country`: String. Optional.
+- `city`: File. Optional.
+
+#### Example Request
+
+```json
+{
+    "email" : "",
+    "date":"",
+    "country":"",
+    "city":"Bo" 
+}
+```
+
+#### Example Response
+
+`200 OK`
+
+```json
+{
+    "status": {
+        "code": 1,
+        "message": "Procesado con éxito"
+    },
+    "data": {
+        "current_page": 1,
+        "data": [
+            {
+                "id": 7,
+                "email_fk": "Jane.Doe@gmail.com",
+                "date": "01/01/1999",
+                "country": "Colombia",
+                "city": "Bogota",
+                "status": 1,
+                "created_at": "2021-05-10T02:14:17.000000Z",
+                "updated_at": "2021-05-10T02:14:17.000000Z"
+            },
+            {
+                "id": 9,
+                "email_fk": "John.Doe@gmail.com",
+                "date": "01/01/1999",
+                "country": "Colombia",
+                "city": "Bogota",
+                "status": 1,
+                "created_at": "2021-05-10T02:23:04.000000Z",
+                "updated_at": "2021-05-10T02:23:04.000000Z"
+            }
+        ],
+        "first_page_url": "http://127.0.0.1:8000/api/getTravelFilters?page=1",
+        "from": 1,
+        "last_page": 1,
+        "last_page_url": "http://127.0.0.1:8000/api/getTravelFilters?page=1",
+        "links": [
+            {
+                "url": null,
+                "label": "&laquo; Previous",
+                "active": false
+            },
+            {
+                "url": "http://127.0.0.1:8000/api/getTravelFilters?page=1",
+                "label": "1",
+                "active": true
+            },
+            {
+                "url": null,
+                "label": "Next &raquo;",
+                "active": false
+            }
+        ],
+        "next_page_url": null,
+        "path": "http://127.0.0.1:8000/api/getTravelFilters",
+        "per_page": 20,
+        "prev_page_url": null,
+        "to": 2,
+        "total": 2
+    }
+}
+```

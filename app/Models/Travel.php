@@ -9,11 +9,8 @@ class Travel extends Model
     protected $table = 'travels';
 
     protected $fillable = [
-        'id', 'email_fk', 'date','country','city','status' 
-    ];
-    protected $attributes = [
-        'status' => 1, 
-    ];
+        'id', 'email_fk', 'date','country','city'
+    ]; 
 
     public function scopeEmail($query, $email)
     {

@@ -13,8 +13,9 @@
  //----------------------------- CRUD CLIENT  -----------------------------
 Route::POST('createClient', 'ClientController@createClient');
 Route::POST('updateClient', 'ClientController@updateClient');
-Route::POST('deleteClient', 'ClientController@deleteClient');
+Route::DELETE('deleteClient/{id}', 'ClientController@deleteClient');
 Route::POST('clientFilters', 'ClientController@getClientFilters');
+Route::POST('imageUploadPost', 'ClientController@imageUploadPost');
 Route::GET('getClients/{id?}', 'ClientController@getClient');
 
 //-----------------------------  TRAVEL  -----------------------------

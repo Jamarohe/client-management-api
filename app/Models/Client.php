@@ -9,11 +9,8 @@ class Client extends Model
     protected $table = 'clients';
 
     protected $fillable = [
-        'id', 'name', 'lastname','cellphone','email','address','photo','status'
-    ];
-    protected $attributes = [
-        'status' => 1, 
-    ];
+        'id', 'name', 'lastname','cellphone','email','address','photo'
+    ]; 
 
     public function scopeName($query, $name)
     {
