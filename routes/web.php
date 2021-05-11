@@ -16,3 +16,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::GET('getVista','TravelController@view');
+Route::GET('delete/{id}','TravelController@delete');
+Route::get('saludo', function(){
+    return view('journey');
+});

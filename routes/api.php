@@ -17,10 +17,11 @@ Route::DELETE('deleteClient/{id}', 'ClientController@deleteClient');
 Route::POST('clientFilters', 'ClientController@getClientFilters');
 Route::POST('imageUploadPost', 'ClientController@imageUploadPost');
 Route::GET('getClients/{id?}', 'ClientController@getClient');
-
 //-----------------------------  TRAVEL  -----------------------------
+Route::GET('getVista','TravelController@view');
 Route::POST('createTravel', 'TravelController@createTravel');
 Route::POST('createTravelXML', 'TravelController@createTravelXML');
 Route::POST('getTravelFilters', 'TravelController@getTravelFilters');
 Route::GET('getTravel/{id?}', 'TravelController@getTravel');
+Route::GET('delete/{id}','TravelController@delete');
 
